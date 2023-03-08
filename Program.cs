@@ -53,7 +53,15 @@ namespace IS_Lab1_XML
             {
                 if (i.Value == max_tab) Console.WriteLine("{0}", i.Key);
             }
-        }
+			Console.WriteLine("3 podmioty produkujace najwiecej kremow");
+			var cnt = 0;
+			foreach (var i in podmiot_kremy.OrderByDescending(key => key.Value))
+			{
+				Console.WriteLine("{0} => {1}", i.Key, i.Value);
+				cnt++;
+				if (cnt >= 3) break;
+			}
+		}
     }
 
     internal class XMLReadWithSAXApproach
@@ -112,7 +120,15 @@ namespace IS_Lab1_XML
             {
                 if (i.Value == max_tab) Console.WriteLine("{0}", i.Key);
             }
-        }
+			Console.WriteLine("3 podmioty produkujace najwiecej kremow");
+			var cnt = 0;
+			foreach (var i in podmiot_kremy.OrderByDescending(key => key.Value))
+			{
+				Console.WriteLine("{0} => {1}", i.Key, i.Value);
+				cnt++;
+				if (cnt >= 3) break;
+			}
+		}
     }
 
     internal class XMLReadWithXLSTDOM
@@ -137,8 +153,54 @@ namespace IS_Lab1_XML
                 else count_diff++;
             }
             Console.WriteLine("Liczba preparatów leczniczych o takiej samie nazwie powszechnej, pod różnymi postaciami: {0}", count_diff);
-            XPathNodeIterator y = navigator.Select("//produktLeczniczy");
-        }
+            navigator.MoveToRoot();
+            navigator.MoveToFirstChild();   // produktyLecznicze
+			navigator.MoveToFirstChild();   // produktLeczniczy
+			do
+            {
+				if (navigator.NodeType == XPathNodeType.Element)
+                {
+                    navigator.MoveToFirstAttribute();
+                    string postac = "";
+                    string podmiot = "";
+                    do {
+						navigator.MoveToNextAttribute();
+						if (navigator.Name == "postac") postac = navigator.Value;
+						if (navigator.Name == "podmiotOdpowiedzialny") podmiot = navigator.Value;
+					} while (navigator.Name != "podmiotOdpowiedzialny");
+					if (postac.Contains("Krem"))
+					{
+						if (podmiot_kremy.ContainsKey(podmiot)) podmiot_kremy[podmiot]++;
+						else podmiot_kremy[podmiot] = 1;
+					}
+					if (postac.Contains("Tabletki"))
+					{
+						if (podmiot_tab.ContainsKey(podmiot)) podmiot_tab[podmiot]++;
+						else podmiot_tab[podmiot] = 1;
+					}
+					navigator.MoveToParent();
+                }
+
+			} while (navigator.MoveToNext());
+			var max_kremy = podmiot_kremy.Values.Max();
+			var max_tab = podmiot_tab.Values.Max();
+			foreach (KeyValuePair<string, int> i in podmiot_kremy)
+			{
+				if (i.Value == max_kremy) Console.WriteLine("Podmiot produkujacy najwiecej kremow: {0}", i.Key);
+			}
+			foreach (KeyValuePair<string, int> i in podmiot_tab)
+			{
+				if (i.Value == max_tab) Console.WriteLine("Podmiot produkujacy najwiecej tabletek: {0}", i.Key);
+			}
+            Console.WriteLine("3 podmioty produkujace najwiecej kremow");
+            var cnt = 0;
+            foreach (var i in podmiot_kremy.OrderByDescending(key => key.Value))
+            {
+                Console.WriteLine("{0} => {1}", i.Key, i.Value);
+                cnt++;
+                if (cnt >= 3) break;
+            }
+		}
     }
 
     internal class Program
