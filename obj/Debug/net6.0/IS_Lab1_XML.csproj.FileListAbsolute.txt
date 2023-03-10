@@ -1,0 +1,16 @@
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\IS_Lab1_XML.exe
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\Assets\data.xml
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\IS_Lab1_XML.deps.json
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\IS_Lab1_XML.runtimeconfig.json
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\IS_Lab1_XML.dll
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\bin\Debug\net6.0\IS_Lab1_XML.pdb
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.csproj.AssemblyReference.cache
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.AssemblyInfoInputs.cache
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.AssemblyInfo.cs
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.csproj.CoreCompileInputs.cache
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.dll
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\refint\IS_Lab1_XML.dll
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.pdb
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\IS_Lab1_XML.genruntimeconfig.cache
+C:\Users\student\Downloads\IS_Labs-master\IS_Labs-master\obj\Debug\net6.0\ref\IS_Lab1_XML.dll
