@@ -24,14 +24,6 @@ namespace IS_Lab1_XML
             var podmiot_kremy = new Dictionary<string, int>();
             var podmiot_tab = new Dictionary<string, int>();
             Console.WriteLine("Liczba produktów leczniczych w postaci kremu, których jedyną substancją czynną jest Mometasoni furoas {0}", count);
-            XPathNodeIterator x = navigator.Select("//@nazwaPowszechnieStosowana");
-            while (x.MoveNext())
-            {
-                var nazwa = x.Current.Value;
-                if (!nazwa_postac.ContainsKey(nazwa)) nazwa_postac.Add(nazwa, new HashSet<string>());
-                //nazwa_postac[nazwa].Add(postac);
-            }
-            Console.WriteLine("Liczba preparatów leczniczych o takiej samie nazwie powszechnej, pod różnymi postaciami: {0}", count_diff);
             navigator.MoveToRoot();
             navigator.MoveToFirstChild();   // produktyLecznicze
             navigator.MoveToFirstChild();   // produktLeczniczy
@@ -40,15 +32,19 @@ namespace IS_Lab1_XML
                 if (navigator.NodeType == XPathNodeType.Element)
                 {
                     navigator.MoveToFirstAttribute();
+                    string nazwa = "";
                     string postac = "";
                     string podmiot = "";
                     do
                     {
                         navigator.MoveToNextAttribute();
+                        if (navigator.Name == "nazwaPowszechnieStosowana") nazwa = navigator.Value;
                         if (navigator.Name == "postac") postac = navigator.Value;
                         if (navigator.Name == "podmiotOdpowiedzialny") podmiot = navigator.Value;
                     } while (navigator.Name != "podmiotOdpowiedzialny");
-                    if (postac.Contains("Krem"))
+					if (!nazwa_postac.ContainsKey(nazwa)) nazwa_postac.Add(nazwa, new HashSet<string>());
+					nazwa_postac[nazwa].Add(postac);
+					if (postac.Contains("Krem"))
                     {
                         if (podmiot_kremy.ContainsKey(podmiot)) podmiot_kremy[podmiot]++;
                         else podmiot_kremy[podmiot] = 1;
@@ -62,7 +58,12 @@ namespace IS_Lab1_XML
                 }
 
             } while (navigator.MoveToNext());
-            var max_kremy = podmiot_kremy.Values.Max();
+			foreach (KeyValuePair<string, HashSet<string>> i in nazwa_postac)
+			{
+				if (i.Value.Count > 1) count_diff++;
+			}
+			Console.WriteLine("Liczba preparatów leczniczych o takiej samie nazwie powszechnej, pod różnymi postaciami: {0}", count_diff);
+			var max_kremy = podmiot_kremy.Values.Max();
             var max_tab = podmiot_tab.Values.Max();
             foreach (KeyValuePair<string, int> i in podmiot_kremy)
             {
