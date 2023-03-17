@@ -3,3 +3,16 @@ paths:
   json_source_file: 'data.json'
   json_destination_file: 'data_mod2.json'
   yaml_destination_file: 'data_ymod2.yaml'
+  yaml_destination_file2: 'data_ymod3.yaml'
+available_ops:
+  - "Deserializacja pliku"
+  - "Statystyki"
+  - "Serializacja do pliku JSON"
+  - "Serializacja do pliku YAML z obiektu"
+  - "Serializacja do pliku YAML z pliku JSON"
+operations:
+  - 1
+  - 3
+  - 4
+  - 5
+  - 2
