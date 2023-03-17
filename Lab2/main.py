@@ -1,3 +1,5 @@
+import sys
+
 import yaml
 from deserialize_json import DeserializeJson
 from serialize_json import SerializeJson
@@ -5,44 +7,39 @@ from convert_json_to_yaml import ConvertJsonToYaml
 
 tempconffile = open('Assets/basic_config.yaml', encoding="utf8")
 confdata = yaml.load(tempconffile, Loader=yaml.FullLoader)
-
-available_ops = {1: "Deserializacja pliku " +
-                    confdata['paths']['source_folder'] +
-                    confdata['paths']['json_source_file'],
-                2: "Statystyki",
-                3: "Serializacja do pliku " +
-                   confdata['paths']['source_folder'] +
-                   confdata['paths']['json_destination_file'],
-                4: "Serializacja do pliku " +
-                   confdata['paths']['source_folder'] +
-                   confdata['paths']['yaml_destination_file'] + " z obiektu",
-                5: "Serializacja do pliku " +
-                   confdata['paths']['source_folder'] + confdata['paths']['yaml_destination_file'] +
-                    " z pliku " + confdata['paths']['source_folder'] + confdata['paths']['json_source_file'],
-                6: "Zakończ wczytywanie i wykonaj operacje"}
-op_list = []
-end = False
+op_list = confdata['operations']
+found_1 = False
 
 print("Dostępne operacje:")
-for i in available_ops: print(str(i) + " -> " + available_ops[i])
+for i in range(0, len(confdata['available_ops'])): print(str(i+1) + " -> " + confdata['available_ops'][i])
 
-while not end:
+print("Sprawdzanie konfiguracji...")
+for i in op_list:
     x = 1
-    try: x = int(input("Wybór: "))
-    except ValueError: print("Error# To nie jest liczba!")
+    try: x = int(i)
+    except ValueError:
+        print("Error# Błąd konfiguracji! Nieprawidłowa wartość")
+        sys.exit(0)
     else:
-        if x < 1 or x > len(available_ops): print("Error# Liczba musi być z zakresu <1," + str(len(available_ops)) + ">")
-        else:
-            if x == 1 or x == 5: op_list.append(x)
-            elif x == 2 or x == 3 or x == 4:
-                if 1 in op_list: op_list.append(x)
-                else: print("Error# Ta operacja wymaga wcześniejszego użycia operacji 1")
-            else: end = True
+        if x < 1 or x > len(confdata['available_ops']):
+            print("Error# Błąd konfiguracji! Nieprawidłowa wartość")
+            sys.exit(0)
+        if x == 1: found_1 = True
+        if x == 2 or x == 3 or x == 4:
+            if not found_1:
+                print("Error# Błąd konfiguracji! Ta operacja wymaga wcześniejszego użycia operacji 1")
+                sys.exit(0)
 
-print(f"Operacje do wykonania: {op_list}")
+print("Konfiguracja poprawna")
+
+print(f"Operacje do wykonania:")
 
 for i in op_list:
-    print(f"Wykonywanie operacji {i}")
+    print(confdata['available_ops'][i-1], end=", ")
+print()
+
+for i in op_list:
+    print(f"Wykonywanie operacji {confdata['available_ops'][i-1]}")
     if i == 1: newDeserializator = DeserializeJson(confdata['paths']['source_folder']+confdata['paths']['json_source_file'])
     elif i == 2: newDeserializator.somestats()
     elif i == 3: SerializeJson.run(newDeserializator, confdata['paths']['source_folder']+confdata['paths']['json_destination_file'])
