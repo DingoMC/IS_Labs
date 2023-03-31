@@ -7,11 +7,11 @@
             <property name="javax.persistence.jdbc.driver"
                       value="com.mysql.cj.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url"
-                      value="jdbc:mysql://192.168.1.200:3306/jpa?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useSSL=false" />
+                      value="jdbc:mysql://localhost:3306/jpa?useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=UTC&amp;useSSL=false" />
             <property name="javax.persistence.jdbc.user"
-                      value="martinx" />
+                      value="root" />
             <property name="javax.persistence.jdbc.password"
-                      value="M@rtinDingo2001" />
+                      value="" />
             <property name="hibernate.dialect"
                       value="org.hibernate.dialect.MySQL5Dialect" />
             <property name="hibernate.hbm2ddl.auto"
